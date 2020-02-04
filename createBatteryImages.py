@@ -1,25 +1,15 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
-for i in range(1):#01):
-	im = Image.new('RGBA', (128, 128), (255,0,0,0))
-	#im = Image.open('battery-bg.png')
+
+fontsFolder = 'C:/Windows/Fonts'
+my_font = ImageFont.truetype(os.path.join(fontsFolder, 'segoeui.ttf'), 82)
+WIDTH, HEIGHT = (128, 128)
+
+for i in range(100):
+	im = Image.new('RGBA', (WIDTH, HEIGHT), (255,0,0,0))
 	draw = ImageDraw.Draw(im)
-	fontsFolder = 'C:/Windows/Fonts'
-	font = ImageFont.truetype(os.path.join(fontsFolder, 'segoeui.ttf'), 85)
-	draw.text((-10,0), '100', fill='white', font=font)
-	im.save('battery'+'101'+'.ico',sizes=[(32,32)])
-
-
-# img = Image.open('battery-bg2.png')
-# img = img.convert("RGBA")
-# datas = img.getdata()
-
-# newData = []
-# for item in datas:
-#     if item[0] > 0 and item[1] > 0 and item[2] > 0:
-#         newData.append((255, 255, 255, 0))
-#     else:
-#         newData.append((200, 220, 220))
-
-# img.putdata(newData)
-# img.save("battery-bg3.png", "png")
+	
+	msg = str(i+1)
+	text_w, text_h = draw.textsize(msg, font=my_font)
+	draw.text( ((WIDTH - text_w) / 2, (HEIGHT - text_h) / 2), msg, fill='white', font=my_font)
+	im.save('Resources/battery-'+ msg +'.ico',sizes=[(32,32)])
